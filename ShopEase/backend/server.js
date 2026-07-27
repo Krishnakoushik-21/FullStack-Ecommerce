@@ -29,6 +29,7 @@ app.use('/api/cart', require('./routes/cart'));
 app.use('/api/wishlist', require('./routes/wishlist'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/profile', require('./routes/profile'));
+app.use('/api/payment', require('./routes/payment'));
 
 // Fallback to index.html for SPA (if we use SPA later)
 app.get(/(.*)/, (req, res) => {
