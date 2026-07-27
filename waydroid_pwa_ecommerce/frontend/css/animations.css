@@ -1,0 +1,91 @@
+/* Page Transitions */
+.view {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.view.active {
+    /* Base active class doesn't animate unless modified by JS */
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Micro-animations */
+.nav-item .icon-container {
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.nav-item:active .icon-container {
+    transform: scale(0.9);
+}
+
+.btn-filled, .btn-outlined {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Simple Ripple Effect using CSS */
+.btn-filled::after, .btn-outlined::after {
+    content: "";
+    background: rgba(255, 255, 255, 0.3);
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.btn-filled:active::after, .btn-outlined:active::after {
+    opacity: 1;
+    transform: scale(0);
+    transition: 0s;
+}

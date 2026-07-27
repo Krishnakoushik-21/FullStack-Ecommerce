@@ -1,0 +1,71 @@
+<div class="top-app-bar">
+    <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+    <h1>Create Account</h1>
+</div>
+
+<div class="p-4" style="padding-bottom: 40px;">
+    <form id="register-form" onsubmit="event.preventDefault();" enctype="multipart/form-data">
+        
+        <!-- Profile Picture Upload -->
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 24px;">
+            <div id="avatar-preview-container" style="width: 100px; height: 100px; border-radius: 50%; background-color: var(--md-sys-color-surface-variant); display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; border: 2px dashed var(--md-sys-color-outline); overflow: hidden;">
+                <i class="material-icons" id="avatar-placeholder-icon" style="font-size: 48px; color: var(--md-sys-color-on-surface-variant);">add_a_photo</i>
+                <img id="avatar-img-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+            </div>
+            <input type="file" id="reg-avatar" accept="image/*" style="display: none;">
+            <span style="font-size: 12px; margin-top: 8px; color: var(--md-sys-color-on-surface-variant);">Upload Profile Photo</span>
+        </div>
+
+        <div class="input-field">
+            <label for="reg-name">Full Name</label>
+            <input type="text" id="reg-name" required placeholder="Enter full name">
+        </div>
+
+        <div class="input-field">
+            <label for="reg-phone">Mobile Number</label>
+            <input type="tel" id="reg-phone" required placeholder="Enter mobile number">
+        </div>
+
+        <div class="input-field">
+            <label for="reg-email">Email</label>
+            <input type="email" id="reg-email" required placeholder="Enter email address">
+        </div>
+
+        <div class="input-field">
+            <label for="reg-password">Password</label>
+            <input type="password" id="reg-password" required placeholder="Create password">
+        </div>
+
+        <div class="input-field">
+            <label for="reg-confirm-password">Confirm Password</label>
+            <input type="password" id="reg-confirm-password" required placeholder="Re-enter password">
+        </div>
+
+        <div class="input-field">
+            <label for="reg-gender">Gender</label>
+            <select id="reg-gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="input-field">
+            <label for="reg-dob">Date of Birth</label>
+            <input type="date" id="reg-dob">
+        </div>
+
+        <div style="margin: 20px 0;">
+            <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: var(--md-sys-color-on-surface-variant); cursor: pointer;">
+                <input type="checkbox" id="reg-terms" required style="width: 18px; height: 18px; accent-color: var(--md-sys-color-primary); margin-top: 2px;">
+                <span>I accept the <a href="#" style="color: var(--md-sys-color-primary); text-decoration: none; font-weight: 500;">Terms & Conditions</a></span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn-filled" id="btn-register-submit">Register</button>
+    </form>
+
+    <p style="text-align: center; margin-top: 24px; font-size: 14px; color: var(--md-sys-color-on-surface-variant);">
+        Already have an account? <a href="#" onclick="app.navigate('login')" style="color: var(--md-sys-color-primary); text-decoration: none; font-weight: 500;">Login</a>
+    </p>
+</div>

@@ -1,0 +1,262 @@
+<div class="login-bg" style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 24px; position: relative; background: linear-gradient(135deg, #EFF6FF 0%, #FAF5FF 100%);">
+    
+    <!-- Animated background bubbles -->
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+
+    <div class="glass-card p-4" style="z-index: 2; margin-top: -40px;">
+        <div class="text-center" style="margin-bottom: 24px;">
+            <i class="material-icons" style="font-size: 48px; color: var(--md-sys-color-primary);">shopping_bag</i>
+            <h2 style="font-size: 26px; font-weight: 700; color: var(--md-sys-color-primary); margin-top: 8px;">Welcome Back</h2>
+            <p style="font-size: 14px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px;">Sign in to continue shopping</p>
+        </div>
+
+        <form id="login-form" onsubmit="event.preventDefault();">
+            <div class="input-field">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" required placeholder="Enter your email">
+            </div>
+
+            <div class="input-field">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required placeholder="Enter your password">
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: 14px;">
+                <label style="display: flex; align-items: center; gap: 8px; color: var(--md-sys-color-on-surface-variant); cursor: pointer;">
+                    <input type="checkbox" id="remember-me" style="width: 18px; height: 18px; accent-color: var(--md-sys-color-primary);">
+                    Remember Me
+                </label>
+                <a href="#" onclick="openForgotPassword(); return false;" style="color: var(--md-sys-color-primary); text-decoration: none; font-weight: 500;">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn-filled" id="btn-login-submit">Login</button>
+        </form>
+
+        <div style="display: flex; align-items: center; margin: 20px 0; color: var(--md-sys-color-on-surface-variant);">
+            <div style="flex: 1; height: 1px; background-color: var(--md-sys-color-outline);"></div>
+            <span style="padding: 0 10px; font-size: 12px; font-weight: 500; text-transform: uppercase;">Or</span>
+            <div style="flex: 1; height: 1px; background-color: var(--md-sys-color-outline);"></div>
+        </div>
+
+        <!-- Google Login UI -->
+        <div id="google-signin-btn" style="display: flex; justify-content: center; width: 100%;"></div>
+
+
+        <p style="text-align: center; margin-top: 24px; font-size: 14px; color: var(--md-sys-color-on-surface-variant);">
+            Don't have an account? <a href="#" onclick="app.navigate('register')" style="color: var(--md-sys-color-primary); text-decoration: none; font-weight: 500;">Register</a>
+        </p>
+    </div>
+</div>
+
+<style>
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.15));
+    filter: blur(8px);
+    z-index: 1;
+}
+.bubble-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: -50px;
+    animation: float1 8s infinite alternate ease-in-out;
+}
+.bubble-2 {
+    width: 150px;
+    height: 150px;
+    bottom: 10%;
+    right: -30px;
+    animation: float2 10s infinite alternate ease-in-out;
+}
+@keyframes float1 {
+    to { transform: translate(30px, 20px) scale(1.1); }
+}
+@keyframes float2 {
+    to { transform: translate(-20px, -30px) scale(0.9); }
+}
+</style>
+
+<!-- ─── Forgot Password Modal ─────────────────────────────────────────────── -->
+<div id="forgot-password-modal"
+     style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.5);
+            backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+            align-items:center; justify-content:center; padding:16px;">
+    <div class="glass-card" style="width:100%; max-width:440px; padding:32px; border-radius:24px; position:relative;">
+        <button onclick="closeForgotPassword()"
+                style="position:absolute;top:16px;right:16px;border:none;background:transparent;
+                       cursor:pointer;font-size:20px;color:var(--md-sys-color-on-surface-variant);">✕</button>
+
+        <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:40px;">🔐</div>
+            <h3 style="font-size:20px;font-weight:800;margin:8px 0 4px;color:var(--md-sys-color-on-surface);">Forgot Password?</h3>
+            <p style="font-size:13px;color:var(--md-sys-color-on-surface-variant);margin:0;">
+                Enter your email and we'll send you a reset link.
+            </p>
+        </div>
+
+        <div id="forgot-msg" style="display:none; padding:10px 14px; border-radius:12px; font-size:13px; font-weight:600; margin-bottom:16px;"></div>
+
+        <form id="forgot-form" onsubmit="handleForgotPassword(event)">
+            <div class="input-field">
+                <label for="forgot-email">Email Address</label>
+                <input type="email" id="forgot-email" required placeholder="Enter your registered email">
+            </div>
+            <button type="submit" class="btn-filled" id="btn-forgot-submit">Send Reset Link</button>
+        </form>
+    </div>
+</div>
+
+<!-- ─── Reset Password Panel (shown when #reset-password?token= is in URL) ── -->
+<div id="reset-password-panel" style="display:none; position:fixed; inset:0; z-index:1000;
+     background:rgba(0,0,0,0.5); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+     align-items:center; justify-content:center; padding:16px;">
+    <div class="glass-card" style="width:100%; max-width:440px; padding:32px; border-radius:24px;">
+        <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:40px;">🔑</div>
+            <h3 style="font-size:20px;font-weight:800;margin:8px 0 4px;color:var(--md-sys-color-on-surface);">Reset Password</h3>
+            <p style="font-size:13px;color:var(--md-sys-color-on-surface-variant);margin:0;">Choose a strong new password.</p>
+        </div>
+
+        <div id="reset-msg" style="display:none; padding:10px 14px; border-radius:12px; font-size:13px; font-weight:600; margin-bottom:16px;"></div>
+
+        <form id="reset-form" onsubmit="handleResetPassword(event)">
+            <div class="input-field">
+                <label for="reset-new-password">New Password</label>
+                <input type="password" id="reset-new-password" required minlength="6" placeholder="At least 6 characters">
+            </div>
+            <div class="input-field">
+                <label for="reset-confirm-password">Confirm Password</label>
+                <input type="password" id="reset-confirm-password" required placeholder="Re-enter new password">
+            </div>
+            <button type="submit" class="btn-filled" id="btn-reset-submit">Reset Password</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// ─── Forgot Password ──────────────────────────────────────────────────────────
+function openForgotPassword() {
+    const modal = document.getElementById('forgot-password-modal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeForgotPassword() {
+    const modal = document.getElementById('forgot-password-modal');
+    if (modal) modal.style.display = 'none';
+    const msg = document.getElementById('forgot-msg');
+    if (msg)  { msg.style.display = 'none'; msg.textContent = ''; }
+    const form = document.getElementById('forgot-form');
+    if (form) form.reset();
+}
+
+async function handleForgotPassword(e) {
+    e.preventDefault();
+    const email   = document.getElementById('forgot-email').value.trim();
+    const btn     = document.getElementById('btn-forgot-submit');
+    const msgEl   = document.getElementById('forgot-msg');
+
+    btn.disabled  = true;
+    btn.textContent = 'Sending…';
+    msgEl.style.display = 'none';
+
+    try {
+        const res  = await fetch('/api/auth/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        msgEl.style.display      = 'block';
+        msgEl.style.background   = res.ok ? '#F0FDF4' : '#FEF2F2';
+        msgEl.style.color        = res.ok ? '#166534' : '#991B1B';
+        msgEl.style.border       = `1px solid ${res.ok ? '#BBF7D0' : '#FECACA'}`;
+        msgEl.textContent        = data.message || data.error;
+    } catch (err) {
+        msgEl.style.display    = 'block';
+        msgEl.style.background = '#FEF2F2';
+        msgEl.style.color      = '#991B1B';
+        msgEl.style.border     = '1px solid #FECACA';
+        msgEl.textContent      = 'Network error. Please try again.';
+    } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Send Reset Link';
+    }
+}
+
+// ─── Reset Password (from email link) ────────────────────────────────────────
+function checkForResetToken() {
+    const hash   = window.location.hash || '';
+    // Matches /#reset-password?token=xxxx  or  #reset-password?token=xxxx
+    const match  = hash.match(/reset-password\?token=([a-f0-9]{64})/);
+    if (!match) return;
+
+    const token  = match[1];
+    window._resetToken = token;
+
+    // Clean the URL so user can't accidentally reuse it
+    window.history.replaceState({}, '', '/');
+
+    const panel  = document.getElementById('reset-password-panel');
+    if (panel) panel.style.display = 'flex';
+}
+
+async function handleResetPassword(e) {
+    e.preventDefault();
+    const newPw   = document.getElementById('reset-new-password').value;
+    const confirm = document.getElementById('reset-confirm-password').value;
+    const btn     = document.getElementById('btn-reset-submit');
+    const msgEl   = document.getElementById('reset-msg');
+
+    if (newPw !== confirm) {
+        msgEl.style.display    = 'block';
+        msgEl.style.background = '#FEF2F2';
+        msgEl.style.color      = '#991B1B';
+        msgEl.style.border     = '1px solid #FECACA';
+        msgEl.textContent      = 'Passwords do not match.';
+        return;
+    }
+
+    btn.disabled    = true;
+    btn.textContent = 'Resetting…';
+    msgEl.style.display = 'none';
+
+    try {
+        const res  = await fetch('/api/auth/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: window._resetToken, newPassword: newPw }),
+        });
+        const data = await res.json();
+
+        msgEl.style.display      = 'block';
+        msgEl.style.background   = res.ok ? '#F0FDF4' : '#FEF2F2';
+        msgEl.style.color        = res.ok ? '#166534' : '#991B1B';
+        msgEl.style.border       = `1px solid ${res.ok ? '#BBF7D0' : '#FECACA'}`;
+        msgEl.textContent        = data.message || data.error;
+
+        if (res.ok) {
+            // Close panel after 2s and let user log in
+            setTimeout(() => {
+                const panel = document.getElementById('reset-password-panel');
+                if (panel) panel.style.display = 'none';
+            }, 2000);
+        }
+    } catch (err) {
+        msgEl.style.display    = 'block';
+        msgEl.style.background = '#FEF2F2';
+        msgEl.style.color      = '#991B1B';
+        msgEl.style.border     = '1px solid #FECACA';
+        msgEl.textContent      = 'Network error. Please try again.';
+    } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Reset Password';
+    }
+}
+
+// Auto-check on load (login.html may be loaded fresh from an email link)
+checkForResetToken();
+</script>

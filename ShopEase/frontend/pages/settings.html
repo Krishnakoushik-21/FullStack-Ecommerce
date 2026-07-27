@@ -1,0 +1,77 @@
+<!-- Settings View -->
+<div class="top-app-bar" style="position: sticky; top: 0; z-index: 100; border-radius: 0;">
+    <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+    <span style="font-weight: 700; font-size: 18px; color: var(--md-sys-color-on-surface); margin-left: 8px;">Settings</span>
+</div>
+
+<div class="settings-page-container" style="padding: 16px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto;">
+    
+    <!-- Display Section -->
+    <div>
+        <h3 style="font-size: 13px; font-weight: 700; color: var(--md-sys-color-primary); text-transform: uppercase; margin-bottom: 8px;">Preferences</h3>
+        <div style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 16px; display: flex; flex-direction: column;">
+            
+            <!-- Dark Mode Switch row -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--md-sys-color-outline-variant);">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="material-icons" style="color: var(--md-sys-color-on-surface-variant);">dark_mode</i>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-on-surface);">Dark Mode</span>
+                        <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant);">Reduce screen strain in dark rooms</span>
+                    </div>
+                </div>
+                <!-- Custom Switch -->
+                <label class="switch">
+                    <input type="checkbox" id="dark-mode-toggle-switch" onchange="toggleDarkModeSetting(this.checked)">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <!-- Notifications Switch row -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="material-icons" style="color: var(--md-sys-color-on-surface-variant);">notifications</i>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-on-surface);">Push Notifications</span>
+                        <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant);">Receive alerts for deals, updates & status</span>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="notifications-switch" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Info/Support Section -->
+    <div>
+        <h3 style="font-size: 13px; font-weight: 700; color: var(--md-sys-color-primary); text-transform: uppercase; margin-bottom: 8px;">Support</h3>
+        <div style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 16px; display: flex; flex-direction: column;">
+            
+            <div class="setting-item" style="border-bottom: 1px solid var(--md-sys-color-outline-variant);" onclick="alert('Help center is offline. Please email support@shopease.com')">
+                <i class="material-icons setting-icon">help_outline</i>
+                <div class="setting-text">
+                    <span class="setting-title">Help Center</span>
+                    <span class="setting-desc">FAQs, guide documentation and feedback</span>
+                </div>
+            </div>
+
+            <div class="setting-item" onclick="alert('ShopEase - Version 1.0.0 (Capacitor Ready)')">
+                <i class="material-icons setting-icon">info_outline</i>
+                <div class="setting-text">
+                    <span class="setting-title">About ShopEase</span>
+                    <span class="setting-desc">Version details, terms and licenses</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Version string -->
+    <div style="text-align: center; margin-top: 16px; font-size: 11px; color: var(--md-sys-color-on-surface-variant);">
+        ShopEase App v1.0.0 (PWA)<br>Designed with Material Design 3
+    </div>
+
+</div>

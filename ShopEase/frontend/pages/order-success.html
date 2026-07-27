@@ -1,0 +1,41 @@
+<!-- Order Success View -->
+<div class="success-page-container" style="padding: 32px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 100vh; overflow-y: auto;">
+    
+    <!-- Success Icon Animation wrapper -->
+    <div style="background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); width: 88px; height: 88px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-bottom: 24px; animation: bounceIn 0.6s ease;">
+        <i class="material-icons" style="font-size: 48px;">check_circle</i>
+    </div>
+
+    <h2 style="font-size: 22px; font-weight: 900; color: var(--md-sys-color-on-surface); margin-bottom: 8px;">Order Placed Successfully!</h2>
+    <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); max-width: 280px; margin-bottom: 24px;">Thank you for shopping with us. Your items will arrive shortly.</p>
+
+    <!-- Info Box -->
+    <div style="background-color: var(--md-sys-color-surface); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 20px; padding: 16px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 32px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--md-sys-color-on-surface-variant);">Order ID:</span>
+            <strong id="success-order-id" style="color: var(--md-sys-color-on-surface);">#0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--md-sys-color-on-surface-variant);">Tracking ID:</span>
+            <strong id="success-tracking-id" style="color: var(--md-sys-color-on-surface);">SE0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--md-sys-color-on-surface-variant);">Invoice No:</span>
+            <strong id="success-invoice-no" style="color: var(--md-sys-color-on-surface);">INV-0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--md-sys-color-on-surface-variant);">Total Paid:</span>
+            <strong id="success-total" style="color: var(--md-sys-color-primary);">₹0</strong>
+        </div>
+        <div style="border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 10px; display: flex; flex-direction: column; gap: 4px;">
+            <span style="color: var(--md-sys-color-on-surface-variant); font-size: 11px;">Shipping Address:</span>
+            <span id="success-address" style="color: var(--md-sys-color-on-surface); font-size: 12px; line-height: 1.4;">Address details...</span>
+        </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px;">
+        <button class="btn btn-filled" onclick="app.navigate('orders')" style="width: 100%; padding: 14px; border-radius: 28px; font-weight: 700;">Track Your Orders</button>
+        <button class="btn btn-outlined" onclick="app.navigate('home')" style="width: 100%; padding: 14px; border-radius: 28px; font-weight: 700;">Continue Shopping</button>
+    </div>
+</div>

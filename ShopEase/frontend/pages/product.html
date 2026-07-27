@@ -1,0 +1,169 @@
+<!-- Product Details View -->
+<div class="top-app-bar" style="position: sticky; top: 0; z-index: 100; border-radius: 0;">
+    <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+    <span style="flex: 1; font-weight: 700; font-size: 18px; color: var(--md-sys-color-on-surface); text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" id="product-header-title">Product Details</span>
+    <button class="icon-btn" id="product-heart-btn" onclick="toggleDetailWishlist()"><i class="material-icons">favorite_border</i></button>
+    <button class="icon-btn" onclick="shareProduct()"><i class="material-icons">share</i></button>
+</div>
+
+<div class="product-page-container" style="padding-bottom: 80px; overflow-y: auto;">
+    <!-- Main Product Image -->
+    <div style="background-color: var(--md-sys-color-surface-variant); width: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
+        <img id="detail-image" src="" alt="Product Image" style="width: 100%; max-height: 360px; object-fit: contain; background: white;">
+    </div>
+
+    <!-- Product Info Details -->
+    <div style="padding: 16px; background-color: var(--md-sys-color-surface);">
+        <span id="detail-brand" style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--md-sys-color-primary); letter-spacing: 0.5px;">Brand</span>
+        <h1 id="detail-name" style="font-size: 18px; font-weight: 700; margin: 4px 0 8px 0; color: var(--md-sys-color-on-surface); line-height: 1.4;">Product Name</h1>
+
+        <!-- Rating row -->
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+            <div class="product-card-rating" id="detail-rating-badge" style="margin: 0;">
+                <i class="material-icons" style="font-size: 12px; vertical-align: middle;">star</i>
+                <span id="detail-rating-val">4.5</span>
+            </div>
+            <a href="#reviews-section" style="font-size: 12px; color: var(--md-sys-color-primary); text-decoration: none; font-weight: 500;" id="detail-review-count">25 reviews</a>
+        </div>
+
+        <!-- Price row -->
+        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 16px;">
+            <span id="detail-price" style="font-size: 24px; font-weight: 700; color: var(--md-sys-color-on-surface);">₹0</span>
+            <span id="detail-old-price" style="font-size: 14px; text-decoration: line-through; color: var(--md-sys-color-on-surface-variant);">₹0</span>
+            <span id="detail-discount" style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-error);">0% Off</span>
+        </div>
+
+        <!-- Badges / Highlights -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px;">
+            <div style="background-color: var(--md-sys-color-surface-variant); padding: 10px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                <i class="material-icons" style="color: var(--md-sys-color-primary); font-size: 20px;">local_shipping</i>
+                <span style="font-size: 9px; font-weight: 700; color: var(--md-sys-color-on-surface-variant);" id="detail-delivery">2-3 Days</span>
+            </div>
+            <div style="background-color: var(--md-sys-color-surface-variant); padding: 10px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                <i class="material-icons" style="color: var(--md-sys-color-primary); font-size: 20px;">assignment_return</i>
+                <span style="font-size: 9px; font-weight: 700; color: var(--md-sys-color-on-surface-variant);" id="detail-return">10 Days Policy</span>
+            </div>
+            <div style="background-color: var(--md-sys-color-surface-variant); padding: 10px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                <i class="material-icons" style="color: var(--md-sys-color-primary); font-size: 20px;">verified</i>
+                <span style="font-size: 9px; font-weight: 700; color: var(--md-sys-color-on-surface-variant);" id="detail-warranty">1 Year Warranty</span>
+            </div>
+        </div>
+
+        <!-- Availability -->
+        <div style="margin-bottom: 16px;">
+            <span style="font-size: 13px; font-weight: 700; color: var(--md-sys-color-on-surface);">Availability: </span>
+            <span id="detail-stock" style="font-size: 13px; font-weight: 700; color: var(--md-sys-color-primary);">In Stock</span>
+        </div>
+
+        <!-- Description -->
+        <div style="margin-bottom: 16px;">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-on-surface); margin-bottom: 6px;">Description</h3>
+            <p id="detail-description" style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); line-height: 1.5;">Product description details...</p>
+        </div>
+
+        <!-- Specifications -->
+        <div style="margin-bottom: 24px;">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-on-surface); margin-bottom: 8px;">Specifications</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 12px;" id="detail-specs-table">
+                <!-- Loaded dynamically -->
+            </table>
+        </div>
+
+        <!-- Frequently Bought Together Bundle -->
+        <div style="margin-bottom: 24px; padding: 16px; border: 1px dashed var(--md-sys-color-outline); border-radius: 16px; background-color: var(--md-sys-color-surface-variant);">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-on-surface); margin-bottom: 8px;">Frequently Bought Together</h3>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <img id="bundle-img-1" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; background: white;">
+                    <span style="font-size: 18px; font-weight: bold; color: var(--md-sys-color-on-surface-variant);">+</span>
+                    <img id="bundle-img-2" src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?w=500" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; background: white;">
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 13px; font-weight: 700; color: var(--md-sys-color-on-surface);">Combo Price</div>
+                    <div style="font-size: 15px; font-weight: bold; color: var(--md-sys-color-primary);" id="bundle-combo-price">₹0</div>
+                    <button class="btn btn-filled" onclick="addBundleToCart()" style="padding: 6px 12px; font-size: 11px; margin-top: 4px;">Add Both to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products Slider -->
+        <div style="margin-bottom: 24px;">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--md-sys-color-on-surface); margin-bottom: 12px;">Related Products</h3>
+            <div id="related-products-container" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none;">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div id="reviews-section" style="border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 16px;">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--md-sys-color-on-surface); margin-bottom: 12px;">Customer Reviews</h3>
+            
+            <!-- Ratings Breakdown -->
+            <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 20px; background-color: var(--md-sys-color-surface-variant); padding: 16px; border-radius: 16px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 32px; font-weight: 900; color: var(--md-sys-color-on-surface);" id="breakdown-avg">4.5</div>
+                    <div style="color: #D97706; margin-top: 2px;">
+                        <i class="material-icons" style="font-size: 16px;">star</i>
+                        <i class="material-icons" style="font-size: 16px;">star</i>
+                        <i class="material-icons" style="font-size: 16px;">star</i>
+                        <i class="material-icons" style="font-size: 16px;">star</i>
+                        <i class="material-icons" style="font-size: 16px;">star_half</i>
+                    </div>
+                    <div style="font-size: 10px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px;" id="breakdown-count">20 reviews</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                        <span style="width: 8px;">5</span>
+                        <div style="flex: 1; height: 6px; background-color: var(--md-sys-color-outline-variant); border-radius: 3px; overflow: hidden;">
+                            <div style="width: 70%; height: 100%; background-color: #D97706;"></div>
+                        </div>
+                        <span style="width: 24px; text-align: right;">70%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                        <span style="width: 8px;">4</span>
+                        <div style="flex: 1; height: 6px; background-color: var(--md-sys-color-outline-variant); border-radius: 3px; overflow: hidden;">
+                            <div style="width: 20%; height: 100%; background-color: #D97706;"></div>
+                        </div>
+                        <span style="width: 24px; text-align: right;">20%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                        <span style="width: 8px;">3</span>
+                        <div style="flex: 1; height: 6px; background-color: var(--md-sys-color-outline-variant); border-radius: 3px; overflow: hidden;">
+                            <div style="width: 10%; height: 100%; background-color: #D97706;"></div>
+                        </div>
+                        <span style="width: 24px; text-align: right;">10%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                        <span style="width: 8px;">2</span>
+                        <div style="flex: 1; height: 6px; background-color: var(--md-sys-color-outline-variant); border-radius: 3px; overflow: hidden;">
+                            <div style="width: 0%; height: 100%; background-color: #D97706;"></div>
+                        </div>
+                        <span style="width: 24px; text-align: right;">0%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                        <span style="width: 8px;">1</span>
+                        <div style="flex: 1; height: 6px; background-color: var(--md-sys-color-outline-variant); border-radius: 3px; overflow: hidden;">
+                            <div style="width: 0%; height: 100%; background-color: #D97706;"></div>
+                        </div>
+                        <span style="width: 24px; text-align: right;">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List of Reviews -->
+            <div id="reviews-list-container" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Action Bar for Cart & Buy -->
+<div class="bottom-action-sheet" style="position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--md-sys-color-surface); border-top: 1px solid var(--md-sys-color-outline-variant); padding: 12px 16px; display: flex; gap: 12px; z-index: 99; box-shadow: 0 -4px 12px rgba(0,0,0,0.05);">
+    <button class="btn btn-outlined" onclick="addSingleToCart()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 48px; border-radius: 24px; font-weight: 700;">
+        <i class="material-icons">shopping_cart</i> Add to Cart
+    </button>
+    <button class="btn btn-filled" onclick="buyNow()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 48px; border-radius: 24px; font-weight: 700;">
+        <i class="material-icons">flash_on</i> Buy Now
+    </button>
+</div>

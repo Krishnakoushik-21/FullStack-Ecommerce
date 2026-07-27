@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>LuxeStore PWA</title>
+    <meta name="theme-color" content="#6750A4">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Top Navigation (Standard Website Style) -->
+    <header class="main-header" id="main-nav" style="display: none;">
+        <div class="logo">LuxeStore</div>
+        <ul class="nav-list">
+            <li><a href="#" class="nav-item active" onclick="app.navigate('home')">Home</a></li>
+            <li><a href="#" class="nav-item" onclick="app.navigate('search')">Search</a></li>
+            <li><a href="#" class="nav-item" onclick="app.navigate('favorites')">Favorites</a></li>
+            <li>
+                <a href="#" class="nav-item" onclick="app.navigate('cart')" style="position: relative;">
+                    Cart
+                    <span id="cart-badge" style="position:absolute; top:-8px; right:-16px; background:var(--md-sys-color-error); color:white; font-size:10px; border-radius:50%; padding:2px 6px; display:none;">0</span>
+                </a>
+            </li>
+            <li><a href="#" class="nav-item" onclick="app.navigate('profile')">Profile</a></li>
+        </ul>
+    </header>
+
+    <div id="app-container">
+        <!-- Splash Screen -->
+        <div id="view-splash" class="view active flex-view" style="flex-direction: column; justify-content: center; align-items: center; background-color: var(--md-sys-color-primary); color: white;">
+            <i class="material-icons" style="font-size: 80px;">shopping_bag</i>
+            <h1 style="margin-top: 16px; font-size: 32px;">LuxeStore</h1>
+        </div>
+
+        <!-- Login View -->
+        <div id="view-login" class="view">
+            <div class="p-4" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h1 class="text-center mb-4" style="font-size: 32px; color: var(--md-sys-color-primary);">Welcome Back</h1>
+                <div class="input-field">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="input-field">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button class="btn-filled mt-4" id="btn-login">Login</button>
+                <div class="text-center mt-4" style="color: var(--md-sys-color-primary);" onclick="app.navigate('register')">
+                    Don't have an account? Register
+                </div>
+            </div>
+        </div>
+
+        <!-- Register View -->
+        <div id="view-register" class="view">
+            <div class="top-app-bar">
+                <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+                <h1>Register</h1>
+            </div>
+            <div class="p-4">
+                <div class="input-field">
+                    <label>Full Name</label>
+                    <input type="text" id="reg-name">
+                </div>
+                <div class="input-field">
+                    <label>Email</label>
+                    <input type="email" id="reg-email">
+                </div>
+                <div class="input-field">
+                    <label>Password</label>
+                    <input type="password" id="reg-password">
+                </div>
+                <button class="btn-filled mt-4" id="btn-register">Create Account</button>
+            </div>
+        </div>
+
+        <!-- Home View -->
+        <div id="view-home" class="view">
+            <div class="top-app-bar">
+                <h1>LuxeStore</h1>
+                <button class="icon-btn" onclick="app.navigate('search')"><i class="material-icons">search</i></button>
+            </div>
+            <div class="p-4">
+                <h2 style="font: var(--md-sys-typescale-title-large); margin-bottom: 16px;">Categories</h2>
+                <div style="display: flex; overflow-x: auto; gap: 12px; padding-bottom: 8px;" id="home-categories">
+                    <!-- Categories injected here -->
+                </div>
+                
+                <h2 style="font: var(--md-sys-typescale-title-large); margin: 24px 0 16px;">Featured Products</h2>
+            </div>
+            <div class="product-grid" id="home-products">
+                <!-- Products injected here -->
+            </div>
+        </div>
+
+        <!-- Product Details View -->
+        <div id="view-product" class="view">
+            <div class="top-app-bar" style="background: transparent; position: absolute; width: 100%;">
+                <button class="icon-btn" style="background: rgba(255,255,255,0.7);" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+                <div style="flex:1;"></div>
+                <button class="icon-btn" style="background: rgba(255,255,255,0.7);" id="btn-fav-toggle"><i class="material-icons">favorite_border</i></button>
+            </div>
+            <img id="detail-image" src="" style="width:100%; height:300px; object-fit:cover;" alt="Product Image">
+            <div class="p-4">
+                <h1 id="detail-title" style="font: var(--md-sys-typescale-headline-large);">Product Name</h1>
+                <div id="detail-price" style="font: var(--md-sys-typescale-headline-large); color: var(--md-sys-color-primary); margin: 8px 0;">₹0</div>
+                <p id="detail-desc" style="font: var(--md-sys-typescale-body-large); color: var(--md-sys-color-on-surface-variant);"></p>
+                
+                <div class="fixed-bottom-bar p-4">
+                    <button class="btn-filled" id="btn-add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart View -->
+        <div id="view-cart" class="view">
+            <div class="top-app-bar">
+                <h1>Shopping Cart</h1>
+            </div>
+            <div id="cart-items" style="padding-bottom: 200px;">
+                <!-- Cart items injected here -->
+            </div>
+            
+            <div id="cart-summary" class="fixed-bottom-bar p-4" style="border-radius: 16px 16px 0 0;">
+                <div style="display:flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Subtotal</span> <span id="cart-subtotal">₹0</span>
+                </div>
+                <div style="display:flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Delivery</span> <span>₹50</span>
+                </div>
+                <div style="display:flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 16px;">
+                    <span>Grand Total</span> <span id="cart-total">₹0</span>
+                </div>
+                <button class="btn-filled" onclick="app.navigate('checkout')">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Checkout View -->
+        <div id="view-checkout" class="view">
+            <div class="top-app-bar">
+                <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+                <h1>Checkout</h1>
+            </div>
+            <div class="p-4">
+                <h2 style="margin-bottom: 16px;">Delivery Address</h2>
+                <div class="card p-4" style="margin: 0 0 16px 0;" onclick="app.getCurrentLocation()">
+                    <div style="display:flex; align-items:center; gap: 12px; color: var(--md-sys-color-primary);">
+                        <i class="material-icons">my_location</i>
+                        <span style="font-weight: 500;">Use Current Location</span>
+                    </div>
+                </div>
+                
+                <div class="input-field"><label>Name</label><input type="text" id="chk-name"></div>
+                <div class="input-field"><label>Phone</label><input type="tel" id="chk-phone"></div>
+                <div class="input-field"><label>Full Address</label><input type="text" id="chk-address"></div>
+                <div class="input-field"><label>City</label><input type="text" id="chk-city"></div>
+                <div class="input-field"><label>Pincode</label><input type="number" id="chk-pincode"></div>
+
+                <h2 style="margin: 24px 0 16px 0;">Payment Method</h2>
+                <select id="chk-payment" style="width: 100%; height: 56px; background: var(--md-sys-color-surface-variant); border: none; border-bottom: 2px solid var(--md-sys-color-primary); padding: 0 16px; font-size: 16px;">
+                    <option value="Cash on Delivery">Cash on Delivery</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Credit Card">Credit Card</option>
+                </select>
+
+                <button class="btn-filled mt-4" id="btn-place-order" style="margin-top: 32px;">Place Order</button>
+            </div>
+        </div>
+
+        <!-- Success View -->
+        <div id="view-success" class="view flex-view" style="flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <i class="material-icons" style="font-size: 80px; color: #4CAF50;">check_circle</i>
+            <h1 style="margin: 16px 0;">Order Successful!</h1>
+            <p style="color: var(--md-sys-color-on-surface-variant); margin-bottom: 32px;">Your order has been placed successfully.</p>
+            <div class="p-4" style="width: 100%;">
+                <button class="btn-filled" onclick="app.navigate('home')">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Search View -->
+        <div id="view-search" class="view">
+            <div class="top-app-bar">
+                <h1>Search</h1>
+            </div>
+            <div class="p-4">
+                <div class="input-field">
+                    <input type="text" id="search-input" placeholder="Search products..." onkeyup="app.handleSearch(this.value)">
+                </div>
+                <div class="product-grid" id="search-results">
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--md-sys-color-on-surface-variant);">Type to search for products</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favorites View -->
+        <div id="view-favorites" class="view">
+            <div class="top-app-bar">
+                <h1>Favorites</h1>
+            </div>
+            <div class="product-grid" id="fav-products">
+                <!-- Fav injected -->
+            </div>
+        </div>
+
+        <!-- Profile View -->
+        <div id="view-profile" class="view">
+            <div class="top-app-bar">
+                <h1>Profile</h1>
+            </div>
+            <div class="p-4 text-center">
+                <div style="width: 100px; height: 100px; background: var(--md-sys-color-primary-container); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                    <i class="material-icons" style="font-size: 48px; color: var(--md-sys-color-on-primary-container);">person</i>
+                </div>
+                <h2 id="prof-name">User Name</h2>
+                <p id="prof-email" style="color: var(--md-sys-color-on-surface-variant);">user@example.com</p>
+            </div>
+            <div class="card p-4" onclick="app.navigate('orders')">
+                <div style="display:flex; align-items:center; gap: 16px;">
+                    <i class="material-icons">receipt_long</i>
+                    <span style="font-weight: 500; font-size: 16px; flex:1;">My Orders</span>
+                    <i class="material-icons">chevron_right</i>
+                </div>
+            </div>
+            <div class="card p-4" onclick="app.logout()">
+                <div style="display:flex; align-items:center; gap: 16px; color: var(--md-sys-color-error);">
+                    <i class="material-icons">logout</i>
+                    <span style="font-weight: 500; font-size: 16px; flex:1;">Logout</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Orders View -->
+        <div id="view-orders" class="view">
+             <div class="top-app-bar">
+                <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+                <h1>My Orders</h1>
+            </div>
+            <div id="orders-list" class="p-4">
+            </div>
+        </div>
+
+    </div> <!-- app-container -->
+
+    <!-- Navigation Moved to Top -->
+
+    <!-- JS Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/geolocation.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
+</body>
+</html>

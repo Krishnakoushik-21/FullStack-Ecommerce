@@ -1,0 +1,40 @@
+<!-- Categories and Search View -->
+<div class="category-page-container" style="padding-bottom: 72px;">
+    <!-- Horizontal Categories Bar -->
+    <div class="categories-bar-sticky">
+        <div id="category-tabs" style="display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; max-width: 1400px; margin: 0 auto; padding: 4px 24px;">
+            <button class="tab-btn active" onclick="selectCategoryTab('All')">All</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Mobiles')">Mobiles</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Laptops')">Laptops</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Accessories')">Accessories</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Fashion')">Fashion</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Groceries')">Groceries</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Beauty')">Beauty</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Sports')">Sports</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Furniture')">Furniture</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Books')">Books</button>
+            <button class="tab-btn" onclick="selectCategoryTab('Home & Kitchen')">Kitchen</button>
+        </div>
+    </div>
+
+    <!-- Filter & Sort Options -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background-color: var(--md-sys-color-surface); border-bottom: 1px solid var(--md-sys-color-outline-variant);">
+        <span id="results-count" style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); font-weight: 500;">Loading products...</span>
+        <div style="display: flex; align-items: center; gap: 4px;">
+            <i class="material-icons" style="font-size: 16px; color: var(--md-sys-color-on-surface-variant);">sort</i>
+            <select id="sort-select" onchange="applySorting()" style="border: none; background: transparent; font-size: 13px; font-weight: 700; color: var(--md-sys-color-primary); outline: none; cursor: pointer;">
+                <option value="relevance">Popularity</option>
+                <option value="low-high">Price: Low to High</option>
+                <option value="high-low">Price: High to Low</option>
+                <option value="rating">Customer Rating</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div style="padding: 16px;">
+        <div id="category-products-grid" class="products-grid">
+            <!-- Loaded dynamically -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!-- Orders View -->
+<div class="top-app-bar" style="position: sticky; top: 0; z-index: 100; border-radius: 0;">
+    <span style="font-weight: 700; font-size: 18px; color: var(--md-sys-color-on-surface); margin-left: 16px;">My Orders</span>
+</div>
+
+<div class="orders-page-container" style="padding: 16px; padding-bottom: 80px; overflow-y: auto;">
+    <!-- Empty Orders list state -->
+    <div id="orders-empty-state" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 64px 16px; text-align: center;">
+        <i class="material-icons" style="font-size: 80px; color: var(--md-sys-color-outline); margin-bottom: 16px;">receipt_long</i>
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--md-sys-color-on-surface);">No orders yet</h3>
+        <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin-top: 6px; max-width: 280px;">Once you place orders, they will show up here to track and manage!</p>
+        <button class="btn btn-filled" onclick="app.navigate('home')" style="margin-top: 20px; border-radius: 20px; padding: 10px 24px;">Start Shopping</button>
+    </div>
+
+    <!-- Orders list container -->
+    <div id="orders-list-container" style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Loaded dynamically -->
+    </div>
+</div>
+
+<!-- Expandable Order details modal sheet -->
+<div id="order-details-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: flex-end; justify-content: center;">
+    <div style="background-color: var(--md-sys-color-surface); width: 100%; max-width: 500px; border-radius: 24px 24px 0 0; padding: 20px; display: flex; flex-direction: column; gap: 12px; max-height: 85%; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 8px;">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--md-sys-color-on-surface);" id="modal-order-title">Order Details</h3>
+            <button class="icon-btn" onclick="closeOrderDetailsModal()"><i class="material-icons">close</i></button>
+        </div>
+        
+        <div id="modal-order-content" style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+            <!-- Loaded dynamically -->
+        </div>
+    </div>
+</div>

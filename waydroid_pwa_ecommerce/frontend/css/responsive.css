@@ -1,0 +1,62 @@
+/* Responsive layout for Waydroid / Mobile First */
+
+/* Base is for Mobile, ensuring no horizontal scroll */
+body {
+    max-width: 100vw;
+}
+
+/* Tablets / Larger screens inside Waydroid and Web Desktop */
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    }
+
+    /* Center forms on desktop */
+    #view-login .p-4, #view-register .p-4, #view-checkout .p-4 {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .top-app-bar {
+        padding: 0 32px;
+    }
+}
+
+/* Specific component layouts */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background-color: var(--md-sys-color-surface-variant);
+}
+
+.product-info {
+    padding: 12px;
+}
+
+.product-title {
+    font: var(--md-sys-typescale-body-large);
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-price {
+    font: var(--md-sys-typescale-title-large);
+    color: var(--md-sys-color-primary);
+}

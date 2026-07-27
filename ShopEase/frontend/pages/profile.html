@@ -1,0 +1,101 @@
+<!-- Profile View -->
+<div class="top-app-bar" style="position: sticky; top: 0; z-index: 100;">
+    <span style="font-weight: 800; font-size: 22px; color: var(--md-sys-color-on-surface); margin-left: 16px; letter-spacing: -0.5px;">My Profile</span>
+    <button class="icon-btn" onclick="toggleEditProfileMode()" id="edit-profile-toggle-btn" style="margin-left: auto; margin-right: 8px;"><i class="material-icons">edit</i></button>
+</div>
+
+<div class="profile-page-container" style="padding-bottom: 100px; overflow-y: auto;">
+    
+    <!-- User Avatar & Header Card (Nike Style) -->
+    <div style="background: var(--primary-gradient); color: white; padding: 32px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 16px; border-radius: var(--card-radius-lg); box-shadow: var(--shadow-md);">
+        <div style="position: relative;">
+            <img id="profile-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500" alt="Avatar" style="width: 108px; height: 108px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255, 255, 255, 0.4); box-shadow: var(--shadow-lg);">
+            <label for="profile-avatar-input" id="avatar-edit-label" style="display: none; position: absolute; bottom: 4px; right: 4px; background-color: var(--md-sys-color-primary); color: white; width: 34px; height: 34px; border-radius: 50%; justify-content: center; align-items: center; cursor: pointer; border: 2px solid white; box-shadow: var(--shadow-md);">
+                <i class="material-icons" style="font-size: 18px;">photo_camera</i>
+            </label>
+            <input type="file" id="profile-avatar-input" style="display: none;" onchange="previewProfileAvatar(event)">
+        </div>
+        <div>
+            <h2 id="profile-display-name" style="font-size: 20px; font-weight: 800; margin: 4px 0 0 0; letter-spacing: -0.3px;">User Name</h2>
+            <span id="profile-display-email" style="font-size: 13px; opacity: 0.85; font-weight: 500;">user@shopease.com</span>
+        </div>
+    </div>
+
+    <!-- Quick Navigation Links (visible when not editing) -->
+    <div id="profile-links-wrapper" style="padding: 0 16px 16px 16px; display: flex; flex-direction: column; gap: 12px;">
+        <div class="setting-item card-lift" onclick="app.navigate('orders')">
+            <i class="material-icons setting-icon">receipt_long</i>
+            <div class="setting-text">
+                <span class="setting-title">My Orders</span>
+                <span class="setting-desc">Track, cancel, or return items</span>
+            </div>
+            <i class="material-icons" style="color: var(--md-sys-color-outline);">chevron_right</i>
+        </div>
+        <div class="setting-item card-lift" onclick="app.navigate('wishlist')">
+            <i class="material-icons setting-icon">favorite_border</i>
+            <div class="setting-text">
+                <span class="setting-title">Wishlist</span>
+                <span class="setting-desc">Your favorite saved items</span>
+            </div>
+            <i class="material-icons" style="color: var(--md-sys-color-outline);">chevron_right</i>
+        </div>
+        <div class="setting-item card-lift" onclick="app.navigate('settings')">
+            <i class="material-icons setting-icon">settings</i>
+            <div class="setting-text">
+                <span class="setting-title">Account Settings</span>
+                <span class="setting-desc">Manage passwords and address book</span>
+            </div>
+            <i class="material-icons" style="color: var(--md-sys-color-outline);">chevron_right</i>
+        </div>
+    </div>
+
+    <!-- Edit Profile Fields Form (hidden by default) -->
+    <div id="profile-form-wrapper" style="display: none; padding: 16px;">
+        <form id="profile-edit-form" onsubmit="handleUpdateProfile(event)" style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="input-field">
+                <label>Full Name</label>
+                <input type="text" id="profile-edit-name" placeholder="Full Name" required>
+            </div>
+            <div class="input-field">
+                <label>Phone Number</label>
+                <input type="text" id="profile-edit-phone" placeholder="Phone Number">
+            </div>
+            <div class="input-field">
+                <label>Gender</label>
+                <select id="profile-edit-gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="input-field">
+                <label>Date of Birth</label>
+                <input type="date" id="profile-edit-dob" placeholder="Date of Birth">
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 8px;">
+                <button class="btn btn-outlined" type="button" onclick="cancelEditProfile()" style="flex: 1;">Cancel</button>
+                <button class="btn btn-filled" type="submit" style="flex: 1;">Save Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Quick Info Cards (visible when not editing) -->
+    <div id="profile-info-cards" style="padding: 0 16px 16px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="glass-card" style="padding: 16px; text-align: center; border-radius: var(--card-radius-lg);">
+            <span style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-on-surface-variant); text-transform: uppercase; letter-spacing: 0.5px;">Gender</span>
+            <div id="info-gender" style="font-size: 15px; font-weight: 800; margin-top: 6px; color: var(--md-sys-color-on-surface);">Not Specified</div>
+        </div>
+        <div class="glass-card" style="padding: 16px; text-align: center; border-radius: var(--card-radius-lg);">
+            <span style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-on-surface-variant); text-transform: uppercase; letter-spacing: 0.5px;">Date of Birth</span>
+            <div id="info-dob" style="font-size: 15px; font-weight: 800; margin-top: 6px; color: var(--md-sys-color-on-surface);">Not Specified</div>
+        </div>
+    </div>
+
+    <!-- Logout card -->
+    <div id="profile-logout-wrapper" style="padding: 0 16px 16px 16px;">
+        <button class="btn btn-outlined" onclick="logoutUser()" style="width: 100%; border-color: var(--md-sys-color-error); color: var(--md-sys-color-error); border-radius: 26px; height: 52px; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700;">
+            <i class="material-icons">logout</i> Logout
+        </button>
+    </div>
+</div>

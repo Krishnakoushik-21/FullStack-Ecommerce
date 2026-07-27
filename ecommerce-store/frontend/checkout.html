@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Luxe Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">LUXE</a>
+    </nav>
+
+    <main class="container page-transition-enter">
+        <div style="max-width: 600px; margin: 2rem auto; background: var(--surface); padding: 3rem; border-radius: var(--radius); box-shadow: var(--shadow-lg);">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Checkout</h2>
+            
+            <form id="checkout-form">
+                <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Shipping Information</h3>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="address" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="phone" class="form-control" required>
+                </div>
+
+                <h3 style="margin-bottom: 1rem; margin-top: 2rem; font-size: 1.25rem;">Payment Method</h3>
+                <div class="form-group">
+                    <select id="paymentMethod" class="form-control" required>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Cash on Delivery">Cash on Delivery</option>
+                    </select>
+                </div>
+
+                <div style="background: #F9FAFB; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                    <div class="flex justify-between" style="font-size: 1.25rem; font-weight: 700;">
+                        <span>Total to Pay:</span>
+                        <span id="checkout-total">$0.00</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.125rem;">Place Order</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

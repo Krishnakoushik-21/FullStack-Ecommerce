@@ -1,0 +1,17 @@
+/* Login Page Specific Styling */
+.login-bg {
+    overflow: hidden;
+}
+
+.login-bg .bubble {
+    pointer-events: none;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form .btn-filled {
+    margin-top: 16px;
+}

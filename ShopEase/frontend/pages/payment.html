@@ -1,0 +1,95 @@
+<!-- Payment View -->
+<div class="top-app-bar" style="position: sticky; top: 0; z-index: 100;">
+    <button class="icon-btn" onclick="app.goBack()"><i class="material-icons">arrow_back</i></button>
+    <span style="font-weight: 800; font-size: 20px; color: var(--md-sys-color-on-surface); margin-left: 8px; letter-spacing: -0.5px;">Select Payment</span>
+</div>
+
+<div class="payment-page-container" style="padding: 16px; padding-bottom: 100px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;">
+    
+    <!-- Amount details -->
+    <div class="glass-card" style="padding: 20px; border-radius: var(--card-radius-lg); display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(0,0,0,0.04);">
+        <span style="font-size: 14px; font-weight: 600; color: var(--md-sys-color-on-surface-variant);">Total Payable</span>
+        <span id="payment-payable-amount" style="font-size: 22px; font-weight: 850; color: var(--md-sys-color-primary);">₹0</span>
+    </div>
+
+    <!-- Options -->
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+        <h3 style="font-size: 16px; font-weight: 800; color: var(--md-sys-color-on-surface); letter-spacing: -0.3px;">Payment Options</h3>
+
+        <!-- UPI -->
+        <label class="card-lift" id="pay-opt-UPI" style="display: flex; align-items: center; justify-content: space-between; padding: 18px; border: 2px solid var(--md-sys-color-primary); border-radius: var(--card-radius-lg); cursor: pointer; background-color: rgba(37, 99, 235, 0.05);" onclick="selectPaymentMethod('UPI')">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; background: rgba(37, 99, 235, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-primary);">
+                    <i class="material-icons">qr_code_2</i>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 14px; font-weight: 750; color: var(--md-sys-color-on-surface);">UPI / GooglePay / PhonePe</span>
+                    <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-weight: 500;">Pay instantly using UPI app</span>
+                </div>
+            </div>
+            <input type="radio" name="payment_mode" value="UPI" checked style="accent-color: var(--md-sys-color-primary);">
+        </label>
+
+        <!-- Cards -->
+        <label class="card-lift" id="pay-opt-Card" style="display: flex; align-items: center; justify-content: space-between; padding: 18px; border: 2px solid rgba(0,0,0,0.05); border-radius: var(--card-radius-lg); cursor: pointer; background-color: var(--md-sys-color-surface);" onclick="selectPaymentMethod('Credit Card')">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; background: rgba(37, 99, 235, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-primary);">
+                    <i class="material-icons">credit_card</i>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 14px; font-weight: 750; color: var(--md-sys-color-on-surface);">Credit / Debit Card</span>
+                    <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-weight: 500;">Visa, Mastercard, RuPay</span>
+                </div>
+            </div>
+            <input type="radio" name="payment_mode" value="Credit Card" style="accent-color: var(--md-sys-color-primary);">
+        </label>
+
+        <!-- Credit Card Fields Form (visible only when card selected) -->
+        <div id="card-fields-wrapper" style="display: none; padding: 16px; border-radius: 20px; border: 1px dashed var(--md-sys-color-outline); background-color: var(--md-sys-color-surface-variant); flex-direction: column; gap: 12px; animation: fadeIn 0.3s;">
+            <input type="text" id="card-no" placeholder="Card Number (16 Digits)" style="width: 100%; height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline); outline: none; background: var(--md-sys-color-surface); font-size: 14px;">
+            <div style="display: flex; gap: 12px;">
+                <input type="text" id="card-expiry" placeholder="Expiry MM/YY" style="flex: 1; height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline); outline: none; background: var(--md-sys-color-surface); font-size: 14px;">
+                <input type="password" id="card-cvv" placeholder="CVV" style="flex: 1; height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline); outline: none; background: var(--md-sys-color-surface); font-size: 14px;">
+            </div>
+        </div>
+
+        <!-- Net Banking -->
+        <label class="card-lift" id="pay-opt-Net" style="display: flex; align-items: center; justify-content: space-between; padding: 18px; border: 2px solid rgba(0,0,0,0.05); border-radius: var(--card-radius-lg); cursor: pointer; background-color: var(--md-sys-color-surface);" onclick="selectPaymentMethod('Net Banking')">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; background: rgba(37, 99, 235, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-primary);">
+                    <i class="material-icons">account_balance</i>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 14px; font-weight: 750; color: var(--md-sys-color-on-surface);">Net Banking</span>
+                    <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-weight: 500;">All major Indian banks supported</span>
+                </div>
+            </div>
+            <input type="radio" name="payment_mode" value="Net Banking" style="accent-color: var(--md-sys-color-primary);">
+        </label>
+
+        <!-- Cash on Delivery -->
+        <label class="card-lift" id="pay-opt-COD" style="display: flex; align-items: center; justify-content: space-between; padding: 18px; border: 2px solid rgba(0,0,0,0.05); border-radius: var(--card-radius-lg); cursor: pointer; background-color: var(--md-sys-color-surface);" onclick="selectPaymentMethod('Cash On Delivery')">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; background: rgba(37, 99, 235, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-primary);">
+                    <i class="material-icons">payments</i>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 14px; font-weight: 750; color: var(--md-sys-color-on-surface);">Cash On Delivery (COD)</span>
+                    <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-weight: 500;">Pay with cash upon delivery</span>
+                </div>
+            </div>
+            <input type="radio" name="payment_mode" value="Cash On Delivery" style="accent-color: var(--md-sys-color-primary);">
+        </label>
+    </div>
+</div>
+
+<!-- Floating Place Order bar -->
+<div class="bottom-action-sheet" style="position: fixed; bottom: 20px; left: 16px; right: 16px;">
+    <div style="display: flex; flex-direction: column;">
+        <span style="font-size: 11px; color: var(--md-sys-color-on-surface-variant); font-weight: 600;">Grand Total</span>
+        <span id="payment-bottom-total" style="font-size: 20px; font-weight: 850; color: var(--md-sys-color-on-surface);">₹0</span>
+    </div>
+    <button id="pay-place-order-btn" class="btn btn-filled" onclick="handlePlaceOrder()" style="padding: 12px 28px; border-radius: 24px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+        Place Order <i class="material-icons" style="font-size: 18px;">check_circle</i>
+    </button>
+</div>

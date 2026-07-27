@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Luxe Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">LUXE</a>
+        <div class="nav-links">
+            <a href="index.html">Products</a>
+            <a href="cart.html" style="color: var(--primary);">Cart (<span class="cart-count">0</span>)</a>
+            
+            <a href="login.html" class="guest-only">Login</a>
+            <a href="register.html" class="btn btn-primary guest-only" style="color: white">Sign Up</a>
+            
+            <a href="orders.html" class="auth-only d-none">My Orders</a>
+            <a href="admin.html" class="admin-only d-none">Admin</a>
+            <a href="#" class="btn btn-danger auth-only d-none logout-btn" style="color: white">Logout</a>
+        </div>
+    </nav>
+
+    <main class="container page-transition-enter">
+        <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Shopping Cart</h1>
+        
+        <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+            
+            <!-- Cart Items -->
+            <div style="flex: 2; min-width: 300px;">
+                <table class="cart-table" id="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+                <button id="clear-cart" class="btn btn-danger mt-4 d-none">Clear Cart</button>
+            </div>
+
+            <!-- Summary -->
+            <div style="flex: 1; background: var(--surface); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); min-width: 300px;" id="cart-summary">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Order Summary</h3>
+                <div class="flex justify-between mb-4">
+                    <span style="color: var(--text-muted);">Items:</span>
+                    <span id="summary-items">0</span>
+                </div>
+                <div class="flex justify-between mb-4" style="font-size: 1.25rem; font-weight: 700;">
+                    <span>Total:</span>
+                    <span id="summary-total">$0.00</span>
+                </div>
+                
+                <a href="checkout.html" class="btn btn-primary" style="width: 100%; display: block;" id="checkout-btn">Proceed to Checkout</a>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
