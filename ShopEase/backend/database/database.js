@@ -139,8 +139,29 @@ db.serialize(() => {
         payment_method TEXT,
         payment_status TEXT,
         transaction_id TEXT,
+        razorpay_order_id TEXT,
+        razorpay_payment_id TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    )`);
+
+    // Migrate existing payments table: add razorpay columns if they don't exist
+    db.run(`ALTER TABLE payments ADD COLUMN razorpay_order_id TEXT`, () => {});
+    db.run(`ALTER TABLE payments ADD COLUMN razorpay_payment_id TEXT`, () => {});
+
+    // Razorpay pending orders: temporary store for checkout data between
+    // "create razorpay order" and "verify payment" steps.
+    // This prevents the client from tampering with order amounts.
+    db.run(`CREATE TABLE IF NOT EXISTS razorpay_pending_orders (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        razorpay_order_id TEXT UNIQUE NOT NULL,
+        user_id INTEGER NOT NULL,
+        amount_paise INTEGER NOT NULL,
+        currency TEXT DEFAULT 'INR',
+        checkout_data TEXT NOT NULL,
+        status TEXT DEFAULT 'created',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )`);
 
     // Coupons table
